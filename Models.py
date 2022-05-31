@@ -165,33 +165,6 @@ def printMetrics(score, Y_Val,y_predict):
     print('Root Mean Squared Error:',  metrics.mean_squared_error(Y_Val,y_predict, squared=False))
 
 
-def downloadDataTaxas(codigo):
-    url = 'http://api.bcb.gov.br/dados/serie/bcdata.sgs.{}/dados?formato=json&dataInicial=02/01/2018&dataFinal=25/02/2022'.format(codigo)
-    data = pd.read_json(url)
-    data['data'] = pd.to_datetime(data['data'])
-    return data
-
-def renomeiaAgrupaDados():
-    dataIBOV = downloadDataFrame("^BVSP")
-    dataDolar = downloadDataFrame("USDBRL=X")
-    dataIBOV.rename({'High':'Maximo','Low':'Minimo','Open':'Abertura','Close':'Fechamento','Volume':'Volume','Adj Close':'Fechamento ajustado'}, axis=1, inplace=True)
-    return dataIBOV
-
-def download_data():
-    dataIBOV = downloadDataFrame("^BVSP")
-    dataDolar = downloadDataFrame("USDBRL=X")
-    dataSELIC= downloadDataTaxas(432)
-    dataIPCA = downloadDataTaxas(433)
-    dataIGPM = downloadDataTaxas(189)
-    data = pd.concat([dataIBOV,dataDolar['Adj Close']], axis=1)
-    print(dataSELIC.tail(10))
-    print(dataDolar.tail(10))
-    print(dataIPCA.tail(10))
-    print(dataIGPM.tail(10))
-    print(dataIBOV.tail(10))
-    return print(data.tail(5))
-
-
 if __name__ == '__main__':
     # carrega data set de treino e de teste 
     #derivativo, FONT, START, END, colunaAtualizada
