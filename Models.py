@@ -166,20 +166,20 @@ def printMetrics(score, Y_Val,y_predict):
 
 
 if __name__ == '__main__':
-    # carrega data set de treino e de teste 
+    # carrega data set de treino e de validaçao
     #derivativo, FONT, START, END, colunaAtualizada
-    ibov = extraiBaseDeDados("^BVSP","yahoo",dt.datetime(2018,1,2),dt.datetime(2022,2,25),'Adj Close')
-    printaGraficosDataSet(ibov)
-    printaGraficosGeralDataSet(ibov)
+    ibovPeriodoTreinamento = extraiBaseDeDados("^BVSP","yahoo",dt.datetime(2018,1,2),dt.datetime(2022,2,25),'Adj Close')
+    printaGraficosDataSet(ibovPeriodoTreinamento)
+    printaGraficosGeralDataSet(ibovPeriodoTreinamento)
     #----
-    ibovTeste = extraiBaseDeDados("^BVSP","yahoo",dt.datetime(2022,2,26),dt.datetime(2022,5,24),'Adj Close')
-    printaGraficosDataSet(ibovTeste)
-    printaGraficosGeralDataSet(ibovTeste)
+    ibovPeriodoValidacao = extraiBaseDeDados("^BVSP","yahoo",dt.datetime(2022,2,26),dt.datetime(2022,5,24),'Adj Close')
+    printaGraficosDataSet(ibovPeriodoValidacao)
+    printaGraficosGeralDataSet(ibovPeriodoValidacao)
     #----
     #Normalizaçao 
-    X,Y = normalizacaoBase(ibov,'Treino')
+    X,Y = normalizacaoBase(ibovPeriodoTreinamento,'Treino')
     #----
-    X_val, Y_Val = normalizacaoBase(ibovTeste,'Teste')
+    X_val, Y_Val = normalizacaoBase(ibovPeriodoValidacao,'Teste')
     #----
     #K-folds
     X_treino, X_teste, Y_treino, Y_teste = kFolds(X,Y)
